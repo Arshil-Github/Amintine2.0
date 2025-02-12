@@ -64,7 +64,7 @@ const BottomNav = ({ navItems, currentPath }) => {
   const navigate = useNavigate();
   return (
     <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3 z-50">
-      <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20">
+      <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20 py-1">
         {navItems.map(({ path, component }) => {
           return (
             <NavButton
@@ -74,15 +74,27 @@ const BottomNav = ({ navItems, currentPath }) => {
               currentPath={currentPath}
             >
               {component.type.name === "Home" ? (
-                <Smiley size={24} color="#4F46E5" weight="bold" />
+                <img
+                  src="/icons/house.svg"
+                  alt="Chat Icon"
+                  className="w-6 h-6"
+                />
               ) : component.type.name === "MatchRoulette" ? (
-                <Dices size={24} />
+                <img
+                  src="/icons/puzzle-piece.svg"
+                  alt="Chat Icon"
+                  className="w-6 h-6"
+                />
               ) : component.type.name === "ConfessionsPage" ? (
-                <Clipboard size={24} />
+                <img
+                  src="/icons/clipboard.svg"
+                  alt="Chat Icon"
+                  className="w-6 h-6"
+                />
               ) : component.type.name === "ConversationList" ? (
-                <MessageSquare size={24} />
+                <img src="/icons/chat.svg" alt="Chat" className="w-6 h-6" />
               ) : (
-                "A"
+                component.type.name
               )}
             </NavButton>
           );
@@ -93,10 +105,14 @@ const BottomNav = ({ navItems, currentPath }) => {
 };
 
 const NavButton = ({ children, onClick, path, currentPath }) => {
-  const navBgColor = currentPath == path ? "primary" : "gray-400";
+  const navBgColor =
+    currentPath == path ? "primary bg-opacity-60" : "gray-400 bg-opacity-0";
 
   return (
-    <button className={`p-2 text-${navBgColor}`} onClick={onClick}>
+    <button
+      className={`p-2 text-black bg-${navBgColor} rounded-full`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
