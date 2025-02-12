@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { fetchWithAuth } from "../utils/auth";
+import Loading from "../components/Loading";
 
 const ConfessionsPage = () => {
   const [confessions, setConfessions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+
   const [newConfession, setNewConfession] = useState({
     to: "",
     content: "",
@@ -102,10 +104,7 @@ const ConfessionsPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // const userId = Cookies.get("user");
-    // const fetchURL =
-    //   "https://amintine2.mohdarshilmbd1.workers.dev/confession/create";
+    setLoading(true);
 
     const fetchBody = {
       content: newConfession.content,
@@ -114,22 +113,6 @@ const ConfessionsPage = () => {
     };
 
     try {
-      // console.log("Submitting confession:", newConfession);
-
-      // const response = await fetch(fetchURL, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(fetchBody),
-      // });
-
-      // if (!response.ok) {
-      //   console.error("Failed to create confession");
-      //   return;
-      // }
-
-      // const data = await response.json();
       const data = await fetchWithAuth("/confession/create", "POST", fetchBody);
 
       console.log("Confession created:", data);
@@ -147,6 +130,8 @@ const ConfessionsPage = () => {
       setNewConfession({ to: "", content: "", isAnonymous: false });
     } catch (error) {
       console.error("Error creating confession:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -161,6 +146,7 @@ const ConfessionsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white p-4">
+      <Loading isLoading={loading} />
       <div className="absolute inset-0 bg-[url('/images/building.jpg')] bg-cover bg-center bg-no-repeat " />
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/70" />
       <div className="relative z-10 max-w-2xl mx-auto px-3">

@@ -6,6 +6,7 @@ import {
   useGoogleLogin,
 } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const hasNull = (obj) =>
   Object.values(obj).some((value) => {
@@ -85,8 +86,9 @@ const SignupForm = () => {
 
   // Loading state for submission
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-
   const [location, setLocation] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -129,6 +131,7 @@ const SignupForm = () => {
   const googleSignup = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const token = tokenResponse.access_token;
+      setLoading(true);
 
       const fetchURL =
         "https://amintine2.mohdarshilmbd1.workers.dev/user/register";
@@ -148,6 +151,7 @@ const SignupForm = () => {
 
       if (!location) {
         alert("Error getting location. Please allow location access.");
+        setLoading(false);
         return;
       }
       try {
@@ -167,6 +171,7 @@ const SignupForm = () => {
 
         if (data.error) {
           alert(data.error);
+          setLoading(false);
           return;
         }
 
@@ -180,8 +185,10 @@ const SignupForm = () => {
       } catch (error) {
         console.error("Signup error:", error);
         alert("Signup failed! Check console for error.");
+        setLoading(false);
       } finally {
         setIsSubmitting(false);
+        setLoading(false);
       }
     },
     onError: async () => {
@@ -194,6 +201,7 @@ const SignupForm = () => {
     onSuccess: async (tokenResponse) => {
       const token = tokenResponse.access_token;
 
+      setLoading(true);
       const fetchURL =
         "https://amintine2.mohdarshilmbd1.workers.dev/user/login";
 
@@ -204,6 +212,7 @@ const SignupForm = () => {
 
       if (!location) {
         alert("Error getting location. Please allow location access.");
+        setLoading(false);
         return;
       }
 
@@ -219,6 +228,7 @@ const SignupForm = () => {
 
         if (data.error) {
           alert(data.error);
+          setLoading(false);
           return;
         }
         // Handle successful signup
@@ -235,6 +245,7 @@ const SignupForm = () => {
         alert("Signup failed! Check console for error.");
       } finally {
         setIsSubmitting(false);
+        setLoading(false);
       }
     },
     onError: async () => {
@@ -266,6 +277,7 @@ const SignupForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-200 to-white p-4 flex items-center justify-center">
+      <Loading isLoading={loading} />
       <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg p-6 min-h-[90svh] z-10 bg-opacity-40 border-2 border-secondary flex-col flex">
         <div className="mb-2">
           <h1 className="text-4xl font-head font-semibold text-center text-pink-600">

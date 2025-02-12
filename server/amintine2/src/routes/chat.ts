@@ -88,10 +88,10 @@ chatRouter.post("/send", authMiddleware, async (c) => {
 const getUserName = async (prisma: any, userId: string) => {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: { maskedName: true },
+    select: { firstName: true, lastName: true },
   });
 
-  return user?.maskedName;
+  return `${user.firstName} ${user.lastName}`;
 };
 
 // Get all chats for the logged-in user
