@@ -6,6 +6,7 @@ import {
   Link,
   useNavigate,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import { Dices, Clipboard, MessageSquare, HomeIcon } from "lucide-react";
 import Welcome from "./welcome";
