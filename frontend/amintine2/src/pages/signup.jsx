@@ -97,6 +97,9 @@ const SignupForm = () => {
   };
 
   useEffect(() => {
+    alert(
+      "Kindly allow location to verify you are in Amity. Also kindly fill the details correctly."
+    );
     if (location == null) GetUserLocation();
   }, []);
 
