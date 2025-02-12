@@ -74,25 +74,29 @@ const BottomNav = ({ navItems, currentPath }) => {
               currentPath={currentPath}
             >
               {component.type.name === "Home" ? (
-                <img
-                  src="/icons/home.png"
-                  alt="Chat Icon"
-                  className="w-6 h-6"
-                />
+                // <img
+                //   src="/icons/home.png"
+                //   alt="Chat Icon"
+                //   className="w-6 h-6"
+                // />
+                <div>Home</div>
               ) : component.type.name === "MatchRoulette" ? (
-                <img
-                  src="/icons/slot-machine.png"
-                  alt="Chat Icon"
-                  className="w-6 h-6"
-                />
+                // <img
+                //   src="/icons/slot-machine.png"
+                //   alt="Chat Icon"
+                //   className="w-6 h-6"
+                // />
+                <div>Random</div>
               ) : component.type.name === "ConfessionsPage" ? (
-                <img
-                  src="/icons/board.png"
-                  alt="Chat Icon"
-                  className="w-6 h-6"
-                />
+                // <img
+                //   src="/icons/board.png"
+                //   alt="Chat Icon"
+                //   className="w-6 h-6"
+                // />
+                <div>Board</div>
               ) : component.type.name === "ConversationList" ? (
-                <img src="/icons/message.png" alt="Chat" className="w-6 h-6" />
+                // <img src="/icons/message.png" alt="Chat" className="w-6 h-6" />
+                <div>Chat</div>
               ) : (
                 component.type.name
               )}
