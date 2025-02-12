@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Link,
@@ -65,7 +64,7 @@ const HomeScreen = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3">
+      {/* <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3">
         <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20">
           {navItems.map(({ path, component }) => {
             return (
@@ -90,10 +89,45 @@ const HomeScreen = () => {
             );
           })}
         </div>
+      </div> */}
+      <BottomNav navItems={navItems} currentPath={currentPath} />
+    </div>
+  );
+};
+
+const BottomNav = ({ navItems, currentPath }) => {
+  console.log(currentPath);
+  const navigate = useNavigate();
+  return (
+    <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3">
+      <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20">
+        {navItems.map(({ path, component }) => {
+          return (
+            <NavButton
+              key={path}
+              path={path}
+              onClick={() => navigate(path)}
+              currentPath={currentPath}
+            >
+              {component.type.name === "Home" ? (
+                <HomeIcon size={24} />
+              ) : component.type.name === "MatchRoulette" ? (
+                <Dices size={24} />
+              ) : component.type.name === "ConfessionsPage" ? (
+                <Clipboard size={24} />
+              ) : component.type.name === "ConversationList" ? (
+                <MessageSquare size={24} />
+              ) : (
+                component
+              )}
+            </NavButton>
+          );
+        })}
       </div>
     </div>
   );
 };
+
 const NavButton = ({ children, onClick, path, currentPath }) => {
   const navBgColor = currentPath == path ? "primary" : "gray-400";
 
