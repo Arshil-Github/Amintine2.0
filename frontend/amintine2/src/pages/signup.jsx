@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import {
   GoogleOAuthProvider,
@@ -96,6 +96,10 @@ const SignupForm = () => {
     }));
   };
 
+  useEffect(() => {
+    if (location == null) GetUserLocation();
+  }, []);
+
   const toggleInterest = (interest) => {
     setFormData((prev) => {
       const isSelected = prev.interests.includes(interest);
@@ -137,6 +141,7 @@ const SignupForm = () => {
         interests: formData.interests,
         googleToken: token,
       };
+      setIsSubmitting(true);
 
       if (!location) {
         alert("Error getting location. Please allow location access.");
@@ -192,6 +197,7 @@ const SignupForm = () => {
       const requestBody = {
         googleToken: token,
       };
+      setIsSubmitting(true);
 
       if (!location) {
         alert("Error getting location. Please allow location access.");
@@ -224,23 +230,17 @@ const SignupForm = () => {
       } catch (error) {
         console.error("Signup error:", error);
         alert("Signup failed! Check console for error.");
+      } finally {
+        setIsSubmitting(false);
       }
     },
     onError: async () => {
       console.log("Login Failed");
+      setIsSubmitting(false);
     },
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setIsSubmitting(true);
-
-    if (hasNull(formData)) {
-      alert("Please fill all the fields");
-      return;
-    }
-
+  const GetUserLocation = async () => {
     //Get location of the user
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -249,7 +249,6 @@ const SignupForm = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
-          googleSignup();
         },
         (error) => {
           console.error("Error getting location:", error);
@@ -258,30 +257,7 @@ const SignupForm = () => {
       );
     } else {
       alert("Error getting location. Please allow location access.");
-    }
-  };
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    setIsSubmitting(true);
-
-    //Get location of the user
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-          googleLogin();
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-          alert("Error getting location. Please allow location access.");
-        }
-      );
-    } else {
-      alert("Error getting location. Please allow location access.");
+      //Reload
     }
   };
 
@@ -423,7 +399,7 @@ const SignupForm = () => {
               type="submit"
               disabled={isSubmitting}
               className="w-full mt-6 bg-pink-600 text-white py-3 rounded hover:bg-pink-700 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={handleSubmit}
+              onClick={googleSignup}
             >
               {isSubmitting
                 ? "Creating Account..."
@@ -432,7 +408,7 @@ const SignupForm = () => {
 
             <button
               className="font-body mt-2 text-center text-sm text-blue-600 hover:text-blue-800 underline w-full"
-              onClick={handleLogin}
+              onClick={googleLogin}
             >
               Already have an account
             </button>
