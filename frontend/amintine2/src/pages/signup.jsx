@@ -180,6 +180,8 @@ const SignupForm = () => {
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
 
+        await setTimeout(() => {}, 1000);
+
         // Redirect to home
         navigate("/home");
       } catch (error) {
@@ -237,6 +239,7 @@ const SignupForm = () => {
         localStorage.setItem("refreshToken", data.refreshToken);
 
         //Cookies.set("user", data.id);
+        await setTimeout(() => {}, 1000);
 
         // Redirect to home
         navigate("/home");
