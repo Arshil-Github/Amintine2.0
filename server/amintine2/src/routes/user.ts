@@ -13,7 +13,7 @@ const userRouter = new Hono();
 userRouter.post("/register", locationMiddleware, async (c) => {
   const prisma = getPrisma(c.env);
 
-  const {
+  let {
     firstName,
     lastName,
     maskedName,
@@ -28,7 +28,6 @@ userRouter.post("/register", locationMiddleware, async (c) => {
   //Checks
   if (
     !firstName ||
-    !lastName ||
     !maskedName ||
     !gender ||
     !age ||
@@ -37,6 +36,9 @@ userRouter.post("/register", locationMiddleware, async (c) => {
     !interests
   ) {
     return c.json({ error: "Please provide all required fields" });
+  }
+  if (!lastName) {
+    lastName = "";
   }
 
   if (!googleToken) {
