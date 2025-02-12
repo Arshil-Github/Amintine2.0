@@ -21,25 +21,6 @@ const HomeScreen = () => {
 
   const location = useLocation();
   const currentPath = location.pathname;
-
-  const navItems = [
-    {
-      component: <Home />,
-      path: "/home",
-    },
-    {
-      component: <MatchRoulette />,
-      path: "/home/randomMatch",
-    },
-    {
-      component: <ConfessionsPage />,
-      path: "/home/confession",
-    },
-    {
-      component: <ConversationList />,
-      path: "/home/chat",
-    },
-  ];
   return (
     <div className="max-w-full mx-auto bg-white h-screen flex flex-col max-h-[100svh]">
       {/* Main Content Area - Left empty for custom content */}
@@ -60,7 +41,25 @@ const HomeScreen = () => {
 };
 
 const BottomNav = ({ navItems, currentPath }) => {
-  console.log(currentPath);
+  const navItems = [
+    {
+      component: <Home />,
+      path: "/home",
+    },
+    {
+      component: <MatchRoulette />,
+      path: "/home/randomMatch",
+    },
+    {
+      component: <ConfessionsPage />,
+      path: "/home/confession",
+    },
+    {
+      component: <ConversationList />,
+      path: "/home/chat",
+    },
+  ];
+
   const navigate = useNavigate();
   return (
     <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3 z-50">
