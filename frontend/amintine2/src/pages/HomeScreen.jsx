@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  BrowserRouter as Router,
   Routes,
   Route,
   Link,
@@ -60,6 +61,7 @@ const HomeScreen = () => {
           <Route path="/randomMatch" element={<MatchRoulette />} />
           <Route path="/confession" element={<ConfessionsPage />} />
           <Route path="/chat" element={<ConversationList />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
 
