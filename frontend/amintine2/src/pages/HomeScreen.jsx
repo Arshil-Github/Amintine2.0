@@ -121,7 +121,7 @@ const BottomNav = ({ navItems, currentPath }) => {
               ) : component.type.name === "ConversationList" ? (
                 <MessageSquare size={24} />
               ) : (
-                component
+                "A"
               )}
             </NavButton>
           );
