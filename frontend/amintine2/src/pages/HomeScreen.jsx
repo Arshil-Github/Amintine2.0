@@ -109,12 +109,13 @@ const BottomNav = ({ navItems, currentPath }) => {
 };
 
 const NavButton = ({ children, onClick, path, currentPath }) => {
-  const navBgColor =
-    currentPath == path ? "primary bg-opacity-60" : "gray-400 bg-opacity-0";
+  const isActive = currentPath === path;
 
   return (
     <button
-      className={`p-2 text-black bg-${navBgColor} rounded-full`}
+      className={`p-2 text-black rounded-full ${
+        isActive ? "bg-primary bg-opacity-60" : "bg-gray-400 bg-opacity-0"
+      }`}
       onClick={onClick}
     >
       {children}
