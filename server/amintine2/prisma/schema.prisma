@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "mongodb"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName  String
+  lastName   String
+  maskedName String   @unique
+  gender     String
+  age        Int
+  stype      String
+  bio        String
+  interests  String[] @default([])
+  token      String?  @unique
+  email      String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  messagesSent Message[] @relation("UserMessages") 
+}
+
+//Gender -> M, F, Bi, T, O
+model Confession {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  content     String
+  isAnonymous Boolean
+  targetName  String
+  authorName  String
+  likes       String[] @default([])
+  createdAt   DateTime @default(now())
+}
+
+model Match {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  targetId  String
+  createdAt DateTime @default(now())
+}
+
+model UserSpins {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  spins     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chat {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  participants Participant[] @relation("ChatParticipants")  
+  messages     Message[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Participant {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String
+  chatId     String   @db.ObjectId          
+  maskedName String
+  joinedAt   DateTime @default(now())
+
+  chat Chat @relation("ChatParticipants", fields: [chatId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  chatId    String @db.ObjectId
+  senderId  String @db.ObjectId
+  content   String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
+
+  chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  sender User @relation(fields: [senderId], references: [id], name: "UserMessages")
+}
