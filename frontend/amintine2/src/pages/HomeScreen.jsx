@@ -134,6 +134,13 @@ const Home = ({ navigate }) => {
           </HomeButton>
           <HomeButton onClick={() => navigate("/home/chat")}>Chats</HomeButton>
         </div>
+        <div className="flex items-end justify-end mt-4">
+          <img src="/images/qr.png" className="w-56 border border-black" />
+        </div>
+        <div className="mt-6 mb-4 font-body text text-slate-300 text-right">
+          <div> Share with your friends </div>
+          <div> to make the developer happy. </div>
+        </div>
       </div>
     </div>
   );
