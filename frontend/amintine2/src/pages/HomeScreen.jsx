@@ -43,19 +43,19 @@ const HomeScreen = () => {
 const BottomNav = ({ currentPath }) => {
   const navItems = [
     {
-      component: <Home />,
+      label: "Home",
       path: "/home",
     },
     {
-      component: <MatchRoulette />,
+      label: "MatchRoulette",
       path: "/home/randomMatch",
     },
     {
-      component: <ConfessionsPage />,
+      label: "ConfessionsPage",
       path: "/home/confession",
     },
     {
-      component: <ConversationList />,
+      label: "ConversationList",
       path: "/home/chat",
     },
   ];
@@ -64,15 +64,15 @@ const BottomNav = ({ currentPath }) => {
   return (
     <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3 z-50">
       <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20 py-1">
-        {navItems.map(({ path, component }) => {
+        {navItems.map(({ label, path }) => {
           let inText = "A";
-          if (component.type.name === "Home") {
+          if (label == "Home") {
             inText = "Home";
-          } else if (component.type.name === "MatchRoulette") {
+          } else if (label == "MatchRoulette") {
             inText = "Random";
-          } else if (component.type.name === "ConfessionsPage") {
+          } else if (label == "ConfessionsPage") {
             inText = "Board";
-          } else if (component.type.name === "ConversationList") {
+          } else if (label == "ConversationList") {
             inText = "Chat";
           }
 
