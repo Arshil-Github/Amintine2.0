@@ -66,41 +66,25 @@ const BottomNav = ({ navItems, currentPath }) => {
     <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3 z-50">
       <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20 py-1">
         {navItems.map(({ path, component }) => {
+          let inText = "A";
+          if (component.type.name === "Home") {
+            inText = "Home";
+          } else if (component.type.name === "MatchRoulette") {
+            inText = "Random";
+          } else if (component.type.name === "ConfessionsPage") {
+            inText = "Board";
+          } else if (component.type.name === "ConversationList") {
+            inText = "Chat";
+          }
+
           return (
             <NavButton
               key={path}
               path={path}
               onClick={() => navigate(path)}
               currentPath={currentPath}
-            >
-              {component.type.name === "Home" ? (
-                // <img
-                //   src="/icons/home.png"
-                //   alt="Chat Icon"
-                //   className="w-6 h-6"
-                // />
-                <div>Home</div>
-              ) : component.type.name === "MatchRoulette" ? (
-                // <img
-                //   src="/icons/slot-machine.png"
-                //   alt="Chat Icon"
-                //   className="w-6 h-6"
-                // />
-                <div>Random</div>
-              ) : component.type.name === "ConfessionsPage" ? (
-                // <img
-                //   src="/icons/board.png"
-                //   alt="Chat Icon"
-                //   className="w-6 h-6"
-                // />
-                <div>Board</div>
-              ) : component.type.name === "ConversationList" ? (
-                // <img src="/icons/message.png" alt="Chat" className="w-6 h-6" />
-                <div>Chat</div>
-              ) : (
-                component.type.name
-              )}
-            </NavButton>
+              text={inText}
+            />
           );
         })}
       </div>
@@ -108,7 +92,7 @@ const BottomNav = ({ navItems, currentPath }) => {
   );
 };
 
-const NavButton = ({ children, onClick, path, currentPath }) => {
+const NavButton = ({ children, onClick, path, currentPath, text }) => {
   const isActive = currentPath === path;
 
   return (
@@ -118,7 +102,7 @@ const NavButton = ({ children, onClick, path, currentPath }) => {
       }`}
       onClick={onClick}
     >
-      {children}
+      {text}
     </button>
   );
 };
