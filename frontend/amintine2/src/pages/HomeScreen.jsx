@@ -14,6 +14,7 @@ import MatchRoulette from "./roulette";
 import ConfessionsPage from "./confessions";
 import ConversationList from "./conversationList";
 import { fetchWithAuth } from "../utils/auth";
+import { Smiley, Heart, Bell } from "phosphor-react";
 
 const HomeScreen = () => {
   const navigate = useNavigate();
@@ -41,22 +42,8 @@ const HomeScreen = () => {
   ];
   return (
     <div className="max-w-full mx-auto bg-white h-screen flex flex-col max-h-[100svh]">
-      {/* Header */}
-      {/* <header className="px-4 py-3 flex justify-between items-center border-b">
-        <div className="flex items-center gap-4">
-          <Flame size={24} />
-          <div>
-            <p className="text-sm text-gray-500">Nice to see you here,</p>
-            <p className="font-semibold">Matthew!</p>
-          </div>
-        </div>
-      </header> */}
-
       {/* Main Content Area - Left empty for custom content */}
       <div className="relative flex-1   flex-grow overflow-hidden">
-        {/* <div className="absolute inset-0 bg-[url('/images/welcomebg.jpg')] bg-cover bg-center bg-no-repeat" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/50" /> */}
-
         <Routes>
           <Route path="/" element={<Home navigate={navigate} />} />
           <Route path="/randomMatch" element={<MatchRoulette />} />
@@ -67,32 +54,6 @@ const HomeScreen = () => {
       </div>
 
       {/* Bottom Navigation */}
-      {/* <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3">
-        <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20">
-          {navItems.map(({ path, component }) => {
-            return (
-              <NavButton
-                key={path}
-                path={path}
-                onClick={() => navigate(path)}
-                currentPath={currentPath}
-              >
-                {component.type.name === "Home" ? (
-                  <HomeIcon size={24} />
-                ) : component.type.name === "MatchRoulette" ? (
-                  <Dices size={24} />
-                ) : component.type.name === "ConfessionsPage" ? (
-                  <Clipboard size={24} />
-                ) : component.type.name === "ConversationList" ? (
-                  <MessageSquare size={24} />
-                ) : (
-                  component
-                )}
-              </NavButton>
-            );
-          })}
-        </div>
-      </div> */}
       <BottomNav navItems={navItems} currentPath={currentPath} />
     </div>
   );
@@ -113,7 +74,7 @@ const BottomNav = ({ navItems, currentPath }) => {
               currentPath={currentPath}
             >
               {component.type.name === "Home" ? (
-                <HomeIcon size={24} />
+                <Smiley size={24} color="#4F46E5" weight="bold" />
               ) : component.type.name === "MatchRoulette" ? (
                 <Dices size={24} />
               ) : component.type.name === "ConfessionsPage" ? (
