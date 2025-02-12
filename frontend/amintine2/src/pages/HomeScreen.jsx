@@ -59,9 +59,9 @@ const HomeScreen = () => {
 
         <Routes>
           <Route path="/" element={<Home navigate={navigate} />} />
-          {/* <Route path="/randomMatch" element={<MatchRoulette />} />
+          <Route path="/randomMatch" element={<MatchRoulette />} />
           <Route path="/confession" element={<ConfessionsPage />} />
-          <Route path="/chat" element={<ConversationList />} /> */}
+          <Route path="/chat" element={<ConversationList />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
