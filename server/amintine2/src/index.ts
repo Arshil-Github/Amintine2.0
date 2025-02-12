@@ -12,7 +12,7 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: "http://localhost:5173", // Allow requests from your frontend
+    origin: ["http://localhost:5173", "https://amintine2.vercel.app"],
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     exposeHeaders: ["Content-Type", "Authorization"],
