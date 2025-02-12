@@ -35,12 +35,12 @@ const HomeScreen = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <BottomNav navItems={navItems} currentPath={currentPath} />
+      <BottomNav currentPath={currentPath} />
     </div>
   );
 };
 
-const BottomNav = ({ navItems, currentPath }) => {
+const BottomNav = ({ currentPath }) => {
   const navItems = [
     {
       component: <Home />,
