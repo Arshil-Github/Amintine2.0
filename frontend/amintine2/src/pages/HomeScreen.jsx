@@ -102,7 +102,7 @@ const BottomNav = ({ navItems, currentPath }) => {
   console.log(currentPath);
   const navigate = useNavigate();
   return (
-    <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3">
+    <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3 z-50">
       <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20">
         {navItems.map(({ path, component }) => {
           return (
