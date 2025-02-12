@@ -115,7 +115,7 @@ const ConversationList = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/70" />
 
       {/* Conversations List */}
-      <div className="w-full z-10  h-[93%] realtive">
+      <div className="w-full z-10  max-h-[93%] relative">
         <div className="flex justify-between items-center my-5 z-10 w-full ">
           <div className="text-5xl font-thin text-primary z-10 font-head ">
             chats
@@ -123,9 +123,9 @@ const ConversationList = () => {
         </div>
 
         {loading ? (
-          <div className="p-4 text-center text-space">Loading...</div>
+          <div className="p-4 text-center  text-space ">Loading...</div>
         ) : (
-          <div className="overflow-y-auto h-[calc(100vh-170px)] font-body bg-white bg-opacity-30 rounded-md shadow-lg p-2">
+          <div className="overflow-y-auto h-[calc(95vh-170px)] font-body bg-white bg-opacity-30 rounded-md shadow-lg p-2">
             {conversations.map((conversation) => (
               <div
                 key={conversation.id}
