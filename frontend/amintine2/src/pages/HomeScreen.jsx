@@ -62,8 +62,8 @@ const BottomNav = ({ currentPath }) => {
 
   const navigate = useNavigate();
   return (
-    <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-10 py-3 z-30">
-      <div className="flex justify-between items-center gap-4 w-full bg-pink-50 px-8 rounded-full border-pink-200 border-2 z-20 py-1">
+    <div className="absolute  bottom-0  right-0 left-0 max-w-md mx-auto px-5 py-3 z-30">
+      <div className="flex justify-between items-center gap-4 w-full bg-pink-50 md:px-4 sm:px-0 rounded-full border-pink-200 border-2 z-20 py-1">
         {navItems.map(({ label, path }) => {
           let inText = "A";
           if (label == "Home") {
