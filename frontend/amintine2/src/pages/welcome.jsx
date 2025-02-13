@@ -17,7 +17,7 @@ const Welcome = () => {
             amintine
           </div>
           <div className="text-2xl font-medium text-white font-head text-center trac">
-            the anti-loneliness app
+            making amity friends
           </div>
         </div>
         <div className="text-white text-center text-md mt-5 font-body flex-grow">
