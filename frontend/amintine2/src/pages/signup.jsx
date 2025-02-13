@@ -139,7 +139,7 @@ const SignupForm = () => {
       const requestBody = {
         firstName: formData.fullName.split(" ")[0],
         lastName: formData.fullName.split(" ")[1] || "",
-        maskedName: formData.username,
+        maskedName: formData.fullName,
         gender: formData.gender,
         age: formData.age,
         stype: formData.stype,
@@ -305,7 +305,7 @@ const SignupForm = () => {
 
             {/* Username & Age */}
             <div className="flex items-center justify-between gap-4">
-              <div>
+              {/* <div>
                 <input
                   type="text"
                   name="username"
@@ -315,7 +315,7 @@ const SignupForm = () => {
                   placeholder="Username"
                   className="w-full px-4 py-3 rounded-xl border border-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-200 transition"
                 />
-              </div>
+              </div> */}
               <div>
                 <input
                   type="number"
