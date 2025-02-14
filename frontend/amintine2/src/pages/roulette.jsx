@@ -99,6 +99,12 @@ const MatchRoulette = () => {
       console.error("No match to send message to");
       return;
     }
+    if (!message) {
+      return;
+    }
+
+    setLoading(true);
+
     const fetchBody = {
       paricipantId: match.id,
     };
@@ -111,7 +117,7 @@ const MatchRoulette = () => {
     });
 
     setMatch(null);
-    alert("Message sent");
+    setLoading(false);
   };
 
   return (
@@ -176,7 +182,7 @@ const MatchModal = ({ match, setMatch, sendCall = (s) => {} }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-40">
       <div className="bg-white rounded-2xl shadow-lg p-6 space-y-4 max-w-md w-full relative animate-fade-up">
         {/* Close button */}
         <button

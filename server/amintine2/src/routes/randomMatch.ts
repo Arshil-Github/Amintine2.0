@@ -27,11 +27,10 @@ randomMatchRouter.get("/match", authMiddleware, async (c) => {
     select: { userId: true, targetId: true },
   });
 
-  // Ensure you get the matched user (the other person)
+  // Ensure you do not get the matched user (the other person)
   const matchedTargetIds = myMatches.map((match) =>
     match.userId === userId ? match.targetId : match.userId
   );
-
   let targetGender;
   if (user.gender == "m") targetGender = "f";
   else if (user.gender == "f") targetGender = "m";
@@ -44,6 +43,8 @@ randomMatchRouter.get("/match", authMiddleware, async (c) => {
     },
   });
 
+  console.log(totalUsers);
+
   if (totalUsers === 0) {
     return c.json({ error: "No users found" });
   }
@@ -51,7 +52,7 @@ randomMatchRouter.get("/match", authMiddleware, async (c) => {
 
   const randomUser = await prisma.user.findFirst({
     where: {
-      id: { not: userId },
+      id: { not: userId, notIn: matchedTargetIds },
       ...(targetGender ? { gender: targetGender } : { gender: { not: "" } }),
     },
     skip: randomIndex,
