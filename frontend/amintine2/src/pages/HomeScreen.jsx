@@ -130,7 +130,7 @@ const Home = ({ navigate }) => {
             Confession Board
           </HomeButton>
           <HomeButton onClick={() => navigate("/home/randomMatch")}>
-            Crush Roullete
+            Crush Finder
           </HomeButton>
           <HomeButton onClick={() => navigate("/home/chat")}>Chats</HomeButton>
         </div>
