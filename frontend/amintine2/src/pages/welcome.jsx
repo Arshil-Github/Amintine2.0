@@ -49,11 +49,11 @@ const Welcome = () => {
                   {confession.content}
                 </p>
 
-                <div className="flex justify-between items-center">
+                {/* <div className="flex justify-between items-center">
                   <div className="text-sm text-gray-500">
                     - {confession.author}
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="flex justify-end">Sign in to read more...</div>
             </div>
