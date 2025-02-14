@@ -7,7 +7,7 @@ const MatchRoulette = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [match, setMatch] = useState(null);
   const [rotationDegrees, setRotationDegrees] = useState(0);
-  const [spinsLeft, setSpinsLeft] = useState(2);
+  const [spinsLeft, setSpinsLeft] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const MatchRoulette = () => {
       if (data.spins) {
         setSpinsLeft(data.spins);
       } else {
+        setSpinsLeft(0);
         console.log("Failed to get spins left");
       }
     } catch (error) {
