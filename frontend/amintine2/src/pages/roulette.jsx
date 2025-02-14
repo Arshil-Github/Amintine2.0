@@ -15,6 +15,7 @@ const MatchRoulette = () => {
   }, []);
 
   const handleSpinLeft = async () => {
+    setLoading(true);
     const fetchURL = "/randomMatch/spins";
 
     try {
@@ -28,6 +29,8 @@ const MatchRoulette = () => {
       }
     } catch (error) {
       console.error("Error getting spins left:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
