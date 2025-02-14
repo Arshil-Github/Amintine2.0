@@ -37,7 +37,7 @@ const Welcome = () => {
           Get ready to immerse yourself in the captivating realm of college
           connection, where thrilling encounters awaits your leap <br />
           Made for Amitians by an amitian
-          {confession && (
+          {confession ? (
             <div className="mt-10">
               <div className="bg-white rounded-lg shadow-sm p-6 space-y-3 bg-opacity-60 text-start">
                 <div className="flex justify-between items-start">
@@ -57,6 +57,8 @@ const Welcome = () => {
               </div>
               <div className="flex justify-end">Sign in to read more...</div>
             </div>
+          ) : (
+            <div>Loading...</div>
           )}
         </div>
         <div>
