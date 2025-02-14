@@ -120,4 +120,33 @@ confessionRouter.get("/all", authMiddleware, async (c) => {
   return c.json(dataToSend);
 });
 
+confessionRouter.get("/latest", async (c) => {
+  const prisma = getPrisma(c.env);
+
+  const latestConfession = await prisma.confession.findFirst({
+    select: {
+      id: true,
+      content: true,
+      isAnonymous: true,
+      targetName: true,
+      likes: true,
+      authorName: true,
+      createdAt: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  if (!latestConfession) return c.json(null);
+
+  return c.json({
+    id: latestConfession.id,
+    content: latestConfession.content,
+    isAnonymous: latestConfession.isAnonymous,
+    targetName: latestConfession.targetName,
+    likes: latestConfession.likes,
+    author: latestConfession.authorName,
+    createdAt: latestConfession.createdAt,
+  });
+});
+
 export default confessionRouter;

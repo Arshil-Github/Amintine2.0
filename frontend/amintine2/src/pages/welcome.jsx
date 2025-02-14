@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const navigate = useNavigate();
   const getStartedEventHandler = () => {
     navigate("/signup");
+  };
+  const [confession, setconfession] = useState(null);
+
+  useEffect(() => {
+    getLatestConfession();
+  }, []);
+
+  const getLatestConfession = async () => {
+    const response = await fetch(
+      "https://amintine2.mohdarshilmbd1.workers.dev/confession/latest"
+    );
+    const data = await response.json();
+    setconfession(data);
   };
 
   return (
@@ -24,6 +37,27 @@ const Welcome = () => {
           Get ready to immerse yourself in the captivating realm of college
           connection, where thrilling encounters awaits your leap <br />
           Made for Amitians by an amitian
+          {confession && (
+            <div className="mt-10">
+              <div className="bg-white rounded-lg shadow-sm p-6 space-y-3 bg-opacity-60 text-start">
+                <div className="flex justify-between items-start">
+                  <h3 className="font-medium text-gray-800">
+                    To: {confession.targetName}
+                  </h3>
+                </div>
+                <p className="text-gray-600 whitespace-pre-wrap">
+                  {confession.content}
+                </p>
+
+                <div className="flex justify-between items-center">
+                  <div className="text-sm text-gray-500">
+                    - {confession.author}
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-end">Sign in to read more...</div>
+            </div>
+          )}
         </div>
         <div>
           <button
