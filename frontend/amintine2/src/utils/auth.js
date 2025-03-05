@@ -1,5 +1,5 @@
-// const API_URL = "http://127.0.0.1:8787";
-const API_URL = "https://amintine2.mohdarshilmbd1.workers.dev";
+const API_URL = "http://127.0.0.1:8787";
+// const API_URL = "https://amintine2.mohdarshilmbd1.workers.dev";
 
 export const loginWithGoogle = async (idToken) => {
   const res = await fetch(`${API_URL}/user/login`, {
@@ -12,17 +12,27 @@ export const loginWithGoogle = async (idToken) => {
   localStorage.setItem("refreshToken", data.refreshToken);
 };
 
-export const fetchWithAuth = async (url, method = "GET", body = null) => {
+export const fetchWithAuth = async (
+  url,
+  method = "GET",
+  body = null,
+  isFormData = false
+) => {
   let accessToken = localStorage.getItem("accessToken");
 
   let options = {
     method,
     headers: { Authorization: `Bearer ${accessToken}` },
+    body: null,
   };
 
   if (body) {
-    options.headers["Content-Type"] = "application/json";
-    options.body = JSON.stringify(body);
+    if (isFormData) {
+      options.body = body; // FormData should be used as is, without content-type
+    } else {
+      options.headers["Content-Type"] = "application/json";
+      options.body = JSON.stringify(body);
+    }
   }
 
   let res = await fetch(`${API_URL}${url}`, options);

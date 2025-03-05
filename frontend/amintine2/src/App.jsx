@@ -16,6 +16,7 @@ import React, { useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import HomeScreen from "./pages/HomeScreen";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProfileUpload from "./pages/ProfileUpload";
 
 function App() {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 640);
@@ -77,6 +78,7 @@ function App() {
               />
               <Route path="/signup" element={<SignupForm />} />
               <Route path="/chat/:id" element={<Chat />} />
+              <Route path="/profileTest" element={<ProfileUpload />} />
             </Routes>
           </GoogleOAuthProvider>
         </div>

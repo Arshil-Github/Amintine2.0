@@ -32,7 +32,6 @@ model User {
   messagesSent Message[] @relation("UserMessages") 
 }
 
-//Gender -> M, F, Bi, T, O
 model Confession {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   userId      String
@@ -87,4 +86,13 @@ model Message {
 
   chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   sender User @relation(fields: [senderId], references: [id], name: "UserMessages")
+}
+
+model UserPhotos{
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  profilePhoto   String
+  photos    String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

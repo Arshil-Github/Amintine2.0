@@ -5,7 +5,9 @@
   "compatibility_date": "2025-02-07",
   "vars": {
     "DATABASE_URL": "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYmU4NjRiODctOGZkMi00ZTE4LTkyMGMtNzEyMDExZjIxYmNiIiwidGVuYW50X2lkIjoiZDg1MGUzMjgwYjEzYzBjNWM3OWNiNTVlNDg5MjFhZGI0MDBlMzAyZDRiMGRhNjBlMjFhYzI0ZDgyOTY1N2UwMSIsImludGVybmFsX3NlY3JldCI6Ijc4MTA0NGFmLWZiZTAtNGIyYy04ZDE4LWQ4MDkwNTRlYWRhNyJ9.Z4V0Yeh_Q9H2U0_3aY8uuZBe5nWpJlbRxoOU4iI1sZ0",
-    "DIRECT_DATABASE_URL": "mongodb+srv://admin:NKvalSPuz4pkffng@cluster0.7ffcbvq.mongodb.net/Amintine2?retryWrites=true&w=majority"
+    "DIRECT_DATABASE_URL": "mongodb+srv://admin:NKvalSPuz4pkffng@cluster0.7ffcbvq.mongodb.net/Amintine2?retryWrites=true&w=majority",
+    "SUPABASE_URL": "https://drombifklwnwcrewsccf.supabase.co",
+    "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyb21iaWZrbHdud2NyZXdzY2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk4NjU2MjQsImV4cCI6MjA1NTQ0MTYyNH0.idHQhI8rrRKMciAcQexDNL9GVfUBfDAqXorDd8FxAhc"
   }
   // "compatibility_flags": [
   //   "nodejs_compat"

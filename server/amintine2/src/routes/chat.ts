@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { getPrisma } from "../prisma";
 import { authMiddleware } from "../middleware/auth";
-
 const chatRouter = new Hono();
 
 // Create a new chat between two users

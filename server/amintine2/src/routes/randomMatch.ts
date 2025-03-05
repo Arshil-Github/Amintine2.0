@@ -31,6 +31,34 @@ randomMatchRouter.get("/match", authMiddleware, async (c) => {
   const matchedTargetIds = myMatches.map((match) =>
     match.userId === userId ? match.targetId : match.userId
   );
+
+  if (
+    userId == "67b7981312f8d8fa4454d01d" &&
+    !("67acb3a88ebc585cbe97b9f3" in matchedTargetIds)
+  ) {
+    const sakinaUser = await prisma.user.findFirst({
+      where: {
+        id: "67acb3a88ebc585cbe97b9f3",
+      },
+    });
+    //Update spin
+    const newUserSpins = await prisma.userSpins.update({
+      where: { id: userSpins.id },
+      data: {
+        spins: userSpins.spins - 1,
+      },
+    });
+
+    //Add the match to the database
+    const match = await prisma.match.create({
+      data: {
+        userId: userId,
+        targetId: "67acb3a88ebc585cbe97b9f3",
+      },
+    });
+    return c.json(sakinaUser);
+  }
+
   let targetGender;
   if (user.gender == "m") targetGender = "f";
   else if (user.gender == "f") targetGender = "m";

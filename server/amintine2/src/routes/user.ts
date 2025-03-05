@@ -7,6 +7,8 @@ import {
 } from "../utils/token";
 import { verifyGoogleToken } from "../utils/googleauth";
 import { locationMiddleware } from "../middleware/location";
+import { createClient } from "@supabase/supabase-js";
+import { authMiddleware } from "../middleware/auth";
 
 const userRouter = new Hono();
 
@@ -174,5 +176,79 @@ userRouter.get("/info/:id", async (c) => {
   const user = await prisma.user.findUnique({ where: { id } });
   return c.json(user);
 });
+
+userRouter.post("/uploadProfilePicture", authMiddleware, async (c) => {
+  const supabase = createClient(
+    c.env.SUPABASE_URL as string,
+    c.env.SUPABASE_KEY as string
+  );
+  const prisma = getPrisma(c.env);
+  const userId: string = c.get("userId") as string;
+  const formData = await c.req.formData();
+  const file = formData.get("file");
+
+  //Upload the image to supabase
+  if (!(file instanceof File)) return c.json({ error: "Invalid file" }, 400);
+  const fileName = `profile_${userId}_${Date.now()}.png`;
+  const response = await supabase.storage
+    .from("profile-pictures")
+    .upload(fileName, file, { contentType: "image/png" });
+
+  if (response.error) {
+    console.log(response.error);
+    return c.json({ error: "Upload failed" }, 500);
+  }
+  const imageResponse = supabase.storage
+    .from("profile-pictures")
+    .getPublicUrl(fileName);
+
+  const imageUrl = imageResponse.data.publicUrl;
+
+  //Check if user already has a profile picture
+  const existingPhoto = await prisma.userPhotos.findFirst({
+    where: { userId },
+  });
+
+  //If already has a profile picture, update it
+  if (existingPhoto) {
+    const updatedPhoto = await prisma.userPhotos.update({
+      where: { id: existingPhoto.id },
+      data: { profilePhoto: imageUrl },
+    });
+    return c.json({ success: true, imageResponse });
+  }
+
+  //Store this as profile in database as new entry if not
+  const userPhoto = await prisma.userPhotos.create({
+    data: {
+      userId,
+      profilePhoto: imageUrl,
+    },
+  });
+
+  return c.json({ success: true, imageResponse });
+});
+
+// userRouter.post("/image", async (c) => {
+//   const formData = await c.req.formData();
+//   const file = formData.get("file");
+
+//   if (!(file instanceof File)) return c.json({ error: "Invalid file" }, 400);
+
+//   const fileName = `profile_${Date.now()}.png`;
+
+//   try {
+//     const r = await supabase.storage
+//       .from("profile-pictures")
+//       .upload(fileName, file, { contentType: "image/png" });
+
+//     console.log(r);
+
+//     return c.json({ success: true });
+//   } catch (e) {
+//     console.log(e);
+//     return c.json({ error: "Upload failed" }, 500);
+//   }
+// });
 
 export default userRouter;
