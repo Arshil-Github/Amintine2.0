@@ -1,5 +1,5 @@
-const API_URL = "http://127.0.0.1:8787";
-// const API_URL = "https://amintine2.mohdarshilmbd1.workers.dev";
+//const API_URL = "http://127.0.0.1:8787";
+const API_URL = "https://amintine2.mohdarshilmbd1.workers.dev";
 
 export const loginWithGoogle = async (idToken) => {
   const res = await fetch(`${API_URL}/user/login`, {
