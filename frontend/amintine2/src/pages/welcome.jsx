@@ -27,7 +27,7 @@ const Welcome = () => {
       <div className="relative z-10 p-6 flex flex-col h-full">
         <div>
           <div className="text-7xl font-medium text-primary font-head pt-10 text-center tracking-tighter">
-            amintine
+            Hello from Localhost
           </div>
           <div className="text-2xl font-medium text-white font-head text-center trac">
             making amity friends
